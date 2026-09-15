@@ -132,15 +132,6 @@ def predict_digit(image):
     probs = model.predict(x)
     return int(np.argmax(probs))
 ```
-
-## Next Steps / Ideas to Extend
-
-- Swap the dense network for a **CNN** (Conv2D + MaxPooling) for higher accuracy (~99%).
-- Add **data augmentation** (rotation, shift, zoom) to improve generalization.
-- Try **hyperparameter tuning** (Keras Tuner) on layer sizes, dropout, learning rate.
-- Export the model to **TensorFlow Lite** or **ONNX** for mobile/edge deployment.
-- Build a simple **Gradio/Streamlit** app for interactive digit-drawing inference.
-
 ## Requirements
 
 See `requirements.txt`:
