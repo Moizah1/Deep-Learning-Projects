@@ -20,7 +20,7 @@ mnist_project/
     ├── confusion_matrix.png         # Confusion matrix heatmap
     └── sample_predictions.png       # Grid of sample test predictions
 ```
-
+Outputs will be generated after running the main file
 ---
 
 ## Workflow
