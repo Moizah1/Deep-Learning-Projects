@@ -43,7 +43,15 @@ in `mnist_classifier.py`:
 │ matrix, samples   │   │                    │   │                    │
 └─────────────────┘   └───────────────────┘   └──────────────────┘
 ```
-
+A complete, self-contained deep learning pipeline that:
+  1. Loads the MNIST dataset from keras.datasets
+  2. Preprocesses (normalizes + reshapes) the data
+  3. Builds a fully-connected neural network
+  4. Trains the model with validation monitoring
+  5. Evaluates on the test set
+  6. Visualizes training curves, a confusion matrix, and sample predictions
+  7. Saves the trained model to disk
+     
 ### 1. Load Data
 `keras.datasets.mnist.load_data()` returns 60,000 training images and
 10,000 test images, each a 28×28 grayscale image labeled 0–9.
