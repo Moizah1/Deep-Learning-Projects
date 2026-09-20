@@ -16,7 +16,6 @@ Confusion matrix, ROC curve, and training loss curve are included in `results.pn
 | File | Description |
 |---|---|
 | `breast_cancer_nn.ipynb` | Jupyter notebook — full walkthrough, already executed with outputs |
-| `breast_cancer_nn.py` | Same pipeline as a standalone script |
 | `data.csv` | Wisconsin Breast Cancer diagnostic dataset (569 samples, 30 features) |
 | `results.png` | Loss curve, confusion matrix, and ROC curve, saved as one figure |
 
@@ -66,10 +65,3 @@ Both expect `data.csv` to be in the same directory.
 
 - Python 3.8+
 - `pandas`, `numpy`, `scikit-learn`, `matplotlib`
-
-## Possible Extensions
-
-- K-fold cross-validation
-- Grid/random search over `hidden_layer_sizes` and `alpha`
-- Learning curve to check for over/underfitting
-- Swap in a Keras/PyTorch model for more architectural control
