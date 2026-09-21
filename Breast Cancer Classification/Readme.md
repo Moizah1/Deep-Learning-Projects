@@ -9,7 +9,7 @@ A feedforward neural network (multilayer perceptron) that classifies breast tumo
 | Test Accuracy | 94.7% |
 | Test ROC AUC | 0.993 |
 
-Confusion matrix, ROC curve, and training loss curve are included in `results.png` and inline in the notebook.
+Confusion matrix, ROC curve, and training loss curve are included in `results.png` and inline in the notebook, and then output will be saved as `results.png`.
 
 ## Files
 
