@@ -15,7 +15,7 @@ Confusion matrix, ROC curve, and training loss curve are included in `results.pn
 
 | File | Description |
 |---|---|
-| `breast_cancer_nn.ipynb` | Jupyter notebook — full walkthrough, already executed with outputs |
+| `breast_cancer.ipynb` | Jupyter notebook — full walkthrough, already executed with outputs |
 | `data.csv` | Wisconsin Breast Cancer diagnostic dataset (569 samples, 30 features) |
 | `results.png` | Loss curve, confusion matrix, and ROC curve, saved as one figure |
 
@@ -51,12 +51,12 @@ A `scikit-learn` `MLPClassifier`:
 ## Usage
 
 ### Notebook
-Open `breast_cancer_nn.ipynb` in Jupyter and run all cells (already executed — outputs are visible without re-running).
+Open `breast_cancer.ipynb` in Jupyter and run all cells (already executed — outputs are visible without re-running).
 
 ### Script
 ```bash
 pip install pandas numpy scikit-learn matplotlib
-python breast_cancer_nn.py
+python breast_cancer.py
 ```
 
 Both expect `data.csv` to be in the same directory.
