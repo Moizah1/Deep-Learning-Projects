@@ -59,10 +59,3 @@ Both expect `data.csv` to be in the same directory.
 
 - Python 3.8+
 - `pandas`, `numpy`, `scikit-learn`, `matplotlib`
-
-## Possible Extensions
-
-- K-fold cross-validation
-- Grid/random search over `hidden_layer_sizes` and `alpha`
-- Learning curve to check for over/underfitting
-- Swap in a Keras/PyTorch model for more architectural control
