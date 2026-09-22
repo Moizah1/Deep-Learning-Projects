@@ -1,21 +1,21 @@
 # Breast Cancer Classification with a Neural Network
 
-A feedforward neural network (multilayer perceptron) that classifies breast tumor samples as **malignant** or **benign** using the Wisconsin Breast Cancer diagnostic dataset.
+Feedforward neural networks that classify breast tumor samples as **malignant** or **benign** using the Wisconsin Breast Cancer diagnostic dataset. The notebook builds and trains two versions — a Keras/TensorFlow `Sequential` model and a scikit-learn `MLPClassifier` — and ends with a small predictive system that scores a single new sample.
 
 ## Results
 
-| Metric | Score |
-|---|---|
-| Test Accuracy | 94.7% |
-| Test ROC AUC | 0.993 |
+| Model | Test Accuracy | Test ROC AUC |
+|---|---|---|
+| Keras `Sequential` NN | 0.9649 | — |
+| scikit-learn `MLPClassifier` | 0.9474 | 0.993 |
 
-Confusion matrix, ROC curve, and training loss curve are included in `results.png` and inline in the notebook.
+Confusion matrix, ROC curve, and training loss curve (for the MLP) are included in `results.png` and inline in the notebook.
 
 ## Files
 
 | File | Description |
 |---|---|
-| `breast_cancer.ipynb` | Jupyter notebook — full walkthrough, already executed with outputs |
+| `breast_cancer.ipynb` | Jupyter notebook — full walkthrough, both models, and the prediction demo |
 | `data.csv` | Wisconsin Breast Cancer diagnostic dataset (569 samples, 30 features) |
 | `results.png` | Loss curve, confusion matrix, and ROC curve, saved as one figure |
 
@@ -27,16 +27,22 @@ Each row is a digitized image of a breast mass, described by 30 real-valued feat
 - **Samples**: 569 (357 benign, 212 malignant)
 - This is the same dataset as `sklearn.datasets.load_breast_cancer()`, provided here as a raw CSV.
 
-## Model
+## Models
 
-A `scikit-learn` `MLPClassifier`:
+The notebook trains two neural networks on the same preprocessed data, back to back:
 
+**1. Keras `Sequential`**
+- `Flatten` input layer → `Dense(20, activation="relu")` hidden layer → `Dense(2, activation="sigmoid")` output layer
+- Compiled with `optimizer="adam"`, `loss="sparse_categorical_crossentropy"`
+- Trained for 10 epochs with a 10% validation split
+
+**2. scikit-learn `MLPClassifier`**
 - 2 hidden layers: 32 → 16 neurons
 - ReLU activation, Adam optimizer
 - L2 regularization (`alpha=1e-4`)
 - Early stopping on a held-out validation split
 
-> TensorFlow/Keras is not installed in this environment by default, so scikit-learn's MLP is used. The same architecture can be swapped into a `keras.Sequential` model if you want finer control (dropout, batch norm, custom callbacks).
+The evaluation, plots, and the predictive system below all use the scikit-learn MLP (`model` is reassigned to the `MLPClassifier` after the Keras section).
 
 ## Pipeline
 
@@ -44,9 +50,11 @@ A `scikit-learn` `MLPClassifier`:
 2. Encode `diagnosis` (M → 1, B → 0)
 3. Stratified 80/20 train/test split
 4. Standardize features with `StandardScaler` (fit on train only)
-5. Train the MLP with early stopping
-6. Evaluate: accuracy, ROC AUC, classification report, confusion matrix
-7. Plot training loss curve, confusion matrix, and ROC curve
+5. Train the Keras `Sequential` model and evaluate it with `model.evaluate()`
+6. Train the scikit-learn `MLPClassifier` with early stopping
+7. Evaluate the MLP: accuracy, ROC AUC, classification report, confusion matrix
+8. Plot training loss curve, confusion matrix, and ROC curve
+9. Run a single custom sample through the trained MLP as a predictive-system demo
 
 ## Usage
 
@@ -55,7 +63,26 @@ Open `breast_cancer.ipynb` in Jupyter and run all cells (already executed — ou
 
 Both expect `data.csv` to be in the same directory.
 
+## Predictive System
+
+The last section of the notebook shows how to score a single new sample:
+
+1. Provide the 30 feature values as a tuple (in the same column order as the training data)
+2. Reshape to a single row and apply the fitted `scaler`
+3. Call `model.predict()` / `model.predict_proba()` on the scaled sample
+
+This is a template for scoring new patients — swap in real feature values for `input_data`.
+
 ## Requirements
 
 - Python 3.8+
 - `pandas`, `numpy`, `scikit-learn`, `matplotlib`
+- `tensorflow` (for the Keras model section)
+
+## Possible Extensions
+
+- K-fold cross-validation
+- Grid/random search over `hidden_layer_sizes` and `alpha`
+- Learning curve to check for over/underfitting
+- Tune the Keras model (more epochs, dropout, batch norm) and compare it head-to-head with the MLP on the same metrics
+- Wrap the predictive-system cell in a function or small CLI/API for reuse
