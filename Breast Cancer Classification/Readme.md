@@ -19,13 +19,7 @@ Confusion matrix, ROC curve, and training loss curve (for the MLP) are included 
 | `data.csv` | Wisconsin Breast Cancer diagnostic dataset (569 samples, 30 features) |
 | `results.png` | Loss curve, confusion matrix, and ROC curve, saved as one figure |
 
-## Dataset
 
-Each row is a digitized image of a breast mass, described by 30 real-valued features (mean, standard error, and "worst" value for 10 measurements: radius, texture, perimeter, area, smoothness, compactness, concavity, concave points, symmetry, fractal dimension).
-
-- **Target**: `diagnosis` — `M` (malignant) or `B` (benign)
-- **Samples**: 569 (357 benign, 212 malignant)
-- This is the same dataset as `sklearn.datasets.load_breast_cancer()`, provided here as a raw CSV.
 
 ## Models
 
