@@ -9,7 +9,7 @@ A feedforward neural network (multilayer perceptron) that classifies breast tumo
 | Test Accuracy | 94.7% |
 | Test ROC AUC | 0.993 |
 
-Confusion matrix, ROC curve, and training loss curve are included in `results.png` and inline in the notebook, and then output will be saved as `results.png`.
+Confusion matrix, ROC curve, and training loss curve are included in `results.png` and inline in the notebook.
 
 ## Files
 
@@ -53,15 +53,16 @@ A `scikit-learn` `MLPClassifier`:
 ### Notebook
 Open `breast_cancer.ipynb` in Jupyter and run all cells (already executed — outputs are visible without re-running).
 
-### Script
-```bash
-pip install pandas numpy scikit-learn matplotlib
-python breast_cancer.py
-```
-
 Both expect `data.csv` to be in the same directory.
 
 ## Requirements
 
 - Python 3.8+
 - `pandas`, `numpy`, `scikit-learn`, `matplotlib`
+
+## Possible Extensions
+
+- K-fold cross-validation
+- Grid/random search over `hidden_layer_sizes` and `alpha`
+- Learning curve to check for over/underfitting
+- Swap in a Keras/PyTorch model for more architectural control
