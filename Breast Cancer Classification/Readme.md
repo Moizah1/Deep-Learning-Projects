@@ -6,7 +6,7 @@ Feedforward neural networks that classify breast tumor samples as **malignant** 
 
 | Model | Test Accuracy | Test ROC AUC |
 |---|---|---|
-| Keras `Sequential` NN | 0.9649 | — |
+| Keras `Sequential` NN | 0.9737 | — |
 | scikit-learn `MLPClassifier` | 0.9474 | 0.993 |
 
 Confusion matrix, ROC curve, and training loss curve (for the MLP) are included in `results.png` and inline in the notebook.
