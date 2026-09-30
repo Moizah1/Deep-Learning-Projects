@@ -1,12 +1,4 @@
-# Fashion MNIST Classifier
 
-A convolutional neural network (CNN) built with TensorFlow/Keras that classifies grayscale images of clothing into 10 categories using the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Includes both a training notebook and an interactive Streamlit app.
-
-## Contents
-
-- `fashion_mnist_classifier.ipynb` — the full notebook: data loading, preprocessing, model building, training, evaluation, and visualization.
-- `app.py` — a Streamlit app for interactively classifying uploaded images or random test samples.
-- `requirements.txt` — dependencies for the Streamlit app.
 
 ## Requirements
 
