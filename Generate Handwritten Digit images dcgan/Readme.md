@@ -164,13 +164,6 @@ with torch.no_grad():
     images = G(z).cpu()      # shape: (16, 1, 28, 28), values in [-1, 1]
 ```
 
-## Possible Improvements
-
-- Train for more epochs and tune the learning rate.
-- Implement a **Conditional DCGAN (cGAN)** to generate a specific digit (0-9) on demand.
-- Add label smoothing or instance noise for more stable training.
-- Evaluate with FID or Inception Score.
-- Apply the same architecture to Fashion-MNIST or CIFAR-10.
 
 ## References
 
