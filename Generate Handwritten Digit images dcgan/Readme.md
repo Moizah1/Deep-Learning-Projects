@@ -19,7 +19,6 @@ A deep learning project that trains a **Deep Convolutional Generative Adversaria
 8. [Hyperparameters](#hyperparameters)
 9. [Results](#results)
 10. [Using the Trained Generator](#using-the-trained-generator)
-11. [Possible Improvements](#possible-improvements)
 12. [References](#references)
 
 ---
