@@ -24,5 +24,25 @@ Given an image or video frame, automatically find every egg, mark it with a boun
 
 Python · PyTorch · Ultralytics YOLOv11n · OpenCV · NumPy · Matplotlib · Pandas · Kaggle API · Jupyter Notebook / VS Code
 
+## 5. Dataset Source
+
+The data comes from **Kaggle**, downloaded via the official Kaggle API. The dataset is selected by one setting, `KAGGLE_DATASET` in `src/utils.py` (or the `EGG_KAGGLE_DATASET` environment variable):
+
+```bash
+python src/utils.py search --term "egg detection"      # list candidate datasets
+export EGG_KAGGLE_DATASET="owner/dataset-slug"          # choose one (Windows: set ...)
+```
+
+Choose a dataset that has **YOLO-format `.txt` annotations** (or YOLO-segmentation polygons, which are converted to boxes). Always check the dataset's licence before reuse and cite it in your report.
+
+### Configure `kaggle.json` securely
+
+1. Kaggle → profile picture → **Settings → API → Create New Token** (downloads `kaggle.json`).
+2. Move it to `~/.kaggle/kaggle.json` and restrict access:
+   ```bash
+   mkdir -p ~/.kaggle && mv ~/Downloads/kaggle.json ~/.kaggle/ && chmod 600 ~/.kaggle/kaggle.json
+   ```
+   (Windows: `C:\Users\<you>\.kaggle\kaggle.json`.)
+3. Or use environment variables: `KAGGLE_USERNAME` and `KAGGLE_KEY`.
 
 
