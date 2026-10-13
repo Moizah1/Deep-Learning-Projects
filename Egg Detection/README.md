@@ -57,3 +57,18 @@ YOLO ("You Only Look Once") predicts all boxes and classes in **one forward pass
 
 Training loss = **box regression loss (CIoU) + classification loss (BCE) + distribution focal loss (DFL)**. The "n" (nano) variant has about 2.6 M parameters, which is why it is fast and suited to edge devices. Check the Ultralytics docs for the exact current figures.
 
+## 8. Training Procedure
+
+1. Load pretrained `yolo11n.pt` (COCO). Its convolutional filters already encode general visual features.
+2. Fine-tune on the egg dataset (**transfer learning**) with the Ultralytics training pipeline, which includes built-in augmentation (mosaic, flips, HSV colour jitter, scaling).
+3. Monitor validation metrics every epoch; **early stopping** ends training when they stop improving.
+4. `best.pt` and `last.pt` checkpoints are saved to `runs/egg_yolo11n/weights/`; the best model is copied to `models/egg_yolo11n_best.pt`.
+
+| Parameter | Default | CLI flag |
+|---|---|---|
+| Image size | 640 | `--imgsz` |
+| Batch size | 16 | `--batch` |
+| Epochs | 100 | `--epochs` |
+| Initial learning rate | 0.01 | `--lr0` |
+| Early-stopping patience | 20 | `--patience` |
+| Device | CUDA if available, else CPU | automatic |
