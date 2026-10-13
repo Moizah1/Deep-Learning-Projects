@@ -45,4 +45,15 @@ Choose a dataset that has **YOLO-format `.txt` annotations** (or YOLO-segmentati
    (Windows: `C:\Users\<you>\.kaggle\kaggle.json`.)
 3. Or use environment variables: `KAGGLE_USERNAME` and `KAGGLE_KEY`.
 
+## 7. YOLOv11n Architecture / Model Explanation
+
+YOLO ("You Only Look Once") predicts all boxes and classes in **one forward pass** through a CNN. YOLOv11n has three parts:
+
+| Part | Role |
+|---|---|
+| **Backbone** | Stacked convolutional blocks (Conv, C3k2) with a spatial-pyramid-pooling layer (SPPF) and a self-attention block (C2PSA). It turns pixels into feature maps, from edges and curves up to egg-shaped parts. |
+| **Neck** | A feature-pyramid / path-aggregation structure that merges feature maps from three scales, so small and large eggs are both detected. |
+| **Head** | An anchor-free, decoupled head that predicts the box and the class score separately at each location. Overlapping duplicates are removed with Non-Maximum Suppression (NMS). |
+
+Training loss = **box regression loss (CIoU) + classification loss (BCE) + distribution focal loss (DFL)**. The "n" (nano) variant has about 2.6 M parameters, which is why it is fast and suited to edge devices. Check the Ultralytics docs for the exact current figures.
 
