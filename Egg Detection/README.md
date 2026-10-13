@@ -72,3 +72,13 @@ Training loss = **box regression loss (CIoU) + classification loss (BCE) + distr
 | Initial learning rate | 0.01 | `--lr0` |
 | Early-stopping patience | 20 | `--patience` |
 | Device | CUDA if available, else CPU | automatic |
+
+## 9. Evaluation Metrics
+
+- **Precision**: of the eggs the model reported, how many were real.
+- **Recall**: of the real eggs, how many were found.
+- **mAP@50**: mean average precision at IoU 0.50.
+- **mAP@50-95**: mAP averaged over IoU 0.50-0.95 (stricter, localisation quality).
+- **Validation loss**: box / cls / DFL loss per epoch, read from the training log.
+- **Egg-count accuracy**: predicted vs ground-truth eggs per image (MAE and exact-match %).
+- **Plots**: confusion matrix, Precision-Recall curve, F1-confidence curve, training/validation loss curves, sample predictions.
