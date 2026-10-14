@@ -82,3 +82,18 @@ Training loss = **box regression loss (CIoU) + classification loss (BCE) + distr
 - **Validation loss**: box / cls / DFL loss per epoch, read from the training log.
 - **Egg-count accuracy**: predicted vs ground-truth eggs per image (MAE and exact-match %).
 - **Plots**: confusion matrix, Precision-Recall curve, F1-confidence curve, training/validation loss curves, sample predictions.
+
+## 10. Results
+
+> Results depend on the Kaggle dataset you choose and your hardware, so **run the project and fill in your own numbers** (printed by `python src/evaluate.py`, saved in `runs/eval_test/` and `outputs/`).
+
+| Metric (test set) | Value |
+|---|---|
+| Precision | 0.9492 |
+| Recall | _fill in_ |
+| mAP@50 | _fill in_ |
+| mAP@50-95 | _fill in_ |
+| Count MAE (eggs / image) | _fill in_ |
+| Count exact-match | _fill in_ |
+
+Add your figures here, e.g. `![Confusion matrix](runs/eval_test/confusion_matrix.png)`.
