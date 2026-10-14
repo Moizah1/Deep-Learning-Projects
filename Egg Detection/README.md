@@ -90,10 +90,10 @@ Training loss = **box regression loss (CIoU) + classification loss (BCE) + distr
 | Metric (test set) | Value |
 |---|---|
 | Precision | 0.9492 |
-| Recall | _fill in_ |
-| mAP@50 | _fill in_ |
-| mAP@50-95 | _fill in_ |
-| Count MAE (eggs / image) | _fill in_ |
-| Count exact-match | _fill in_ |
+| Recall | 0.9695 |
+| mAP@50 | 0.9788 |
+| mAP@50-95 | 0.7194 |
+| Count MAE (eggs / image) | 11.0000 |
+| Count exact-match | 0.0000 |
 
 Add your figures here, e.g. `![Confusion matrix](runs/eval_test/confusion_matrix.png)`.
