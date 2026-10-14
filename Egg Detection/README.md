@@ -96,4 +96,5 @@ Training loss = **box regression loss (CIoU) + classification loss (BCE) + distr
 | Count MAE (eggs / image) | 11.0000 |
 | Count exact-match | 0.0000 |
 
-Add your figures here, e.g. `![Confusion matrix](runs/eval_test/confusion_matrix.png)`.
+<img width="3000" height="2250" alt="confusion_matrix" src="https://github.com/user-attachments/assets/2ab95554-31e7-416d-a139-43859007a542" />
+
