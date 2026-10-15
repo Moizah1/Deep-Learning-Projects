@@ -98,3 +98,15 @@ Training loss = **box regression loss (CIoU) + classification loss (BCE) + distr
 
 <img width="3000" height="2250" alt="confusion_matrix" src="https://github.com/user-attachments/assets/2ab95554-31e7-416d-a139-43859007a542" />
 
+## 11. How to Run the Project
+
+```bash
+# 1. Environment
+python -m venv .venv && source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+# (for an NVIDIA GPU, install the CUDA build of PyTorch from https://pytorch.org first)
+
+```
+Open `notebooks/egg_detection.ipynb` and run all cells in order. It covers every step, including plots.
+
+
