@@ -110,3 +110,19 @@ pip install -r requirements.txt
 Open `notebooks/egg_detection.ipynb` and run all cells in order. It covers every step, including plots.
 
 
+## 12. Image / Video / Webcam Prediction
+
+Results are saved under `outputs/images/`, `outputs/videos/` and `outputs/webcam/`.
+
+## 13. Example Output
+
+Each result shows the original and the annotated image side by side. Every egg gets a box labelled `egg 0.87`, and the frame shows the banner:
+
+```text
+Total Eggs Detected: 12(or any number)
+```
+like below
+<img width="1680" height="720" alt="Eggs-On-A-Conveyor-Stock-Video_mp4-0017_jpg rf ab13881dce0942f4a3d36c470f8ade74_00000_report" src="https://github.com/user-attachments/assets/d9cee29a-be88-479a-b470-b6f8b5409522" />
+
+
+
