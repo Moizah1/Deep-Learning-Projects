@@ -9,12 +9,6 @@ Contents
     5. Dataset checks and sample visualisation
     6. Drawing / inference helpers shared by train, evaluate and predict
     7. Training-curve plotting
-
-Command line usage (optional):
-    python src/utils.py search  --term "egg detection"
-    python src/utils.py download --kaggle owner/dataset-slug
-    python src/utils.py prepare
-    python src/utils.py check
 """
 
 from __future__ import annotations
