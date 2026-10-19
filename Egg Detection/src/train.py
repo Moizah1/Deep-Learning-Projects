@@ -1,10 +1,5 @@
-"""
-train.py - Fine-tune a pretrained YOLOv11n model on the egg dataset.
 
-Usage:
-    python src/train.py                       # default settings
-    python src/train.py --epochs 100 --batch 32 --imgsz 640
-"""
+# Fine-tune a pretrained YOLOv11n model on the egg dataset
 
 import argparse
 import shutil
