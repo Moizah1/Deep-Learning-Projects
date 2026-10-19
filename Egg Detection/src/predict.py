@@ -1,15 +1,5 @@
-"""
-predict.py - Egg detection on a single image, many images, a video, or a webcam.
 
-Every detection is drawn with: bounding box + "egg <confidence>",
-and the frame shows "Total Eggs Detected: X". Results are saved to outputs/.
-
-Usage:
-    python src/predict.py image  --source path/to/egg.jpg --conf 0.5
-    python src/predict.py images --source path/to/folder  --conf 0.4
-    python src/predict.py video  --source path/to/video.mp4
-    python src/predict.py webcam --camera 0          (press 'q' to quit)
-"""
+#Egg detection on a single image, many images, a video, or a webcam.
 
 import argparse
 import sys
