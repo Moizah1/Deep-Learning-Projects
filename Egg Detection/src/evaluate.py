@@ -1,12 +1,5 @@
-"""
-evaluate.py - Evaluate the trained model and generate evaluation plots.
 
-Reports Precision, Recall, mAP@50, mAP@50-95, validation loss (from training log)
-and the number of detected eggs versus the ground-truth egg count.
-
-Usage:
-    python src/evaluate.py --split test --conf 0.5
-"""
+# Evaluate the trained model and generate evaluation plots
 
 import argparse
 import csv
