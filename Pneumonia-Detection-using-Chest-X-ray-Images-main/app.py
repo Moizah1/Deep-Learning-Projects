@@ -7,7 +7,7 @@ from tensorflow import keras
 # --------------------------------------------------------------------------
 # Config
 # --------------------------------------------------------------------------
-MODEL_PATH = "pneumonia_detector_mobilenetv2.keras"
+MODEL_PATH = "Pneumonia-Detection-using-Chest-X-ray-Images-main/pneumonia_detector_mobilenetv2.keras"
 #MODEL_PATH = "pneumonia_detector_vgg16.keras"  # Updated model path
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ["NORMAL", "PNEUMONIA"]
