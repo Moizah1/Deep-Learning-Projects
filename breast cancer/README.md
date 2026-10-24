@@ -1,0 +1,120 @@
+# Breast Cancer Prediction using Deep Learning
+
+A neural network built with TensorFlow/Keras that classifies breast tumors as malignant or benign from five cell-nucleus measurements.
+
+> **Disclaimer:** This project is for learning and research only. It is not a medical diagnosis tool.
+
+## Results
+
+Evaluated on a held-out test set of 86 samples:
+
+| Metric | Value |
+|---|---|
+| Accuracy | 87.2% |
+| ROC-AUC | 0.966 |
+
+| Class | Precision | Recall | F1-score | Support |
+|---|---|---|---|---|
+| Malignant (0) | 0.77 | 0.94 | 0.85 | 32 |
+| Benign (1) | 0.96 | 0.83 | 0.89 | 54 |
+
+The model catches 94% of malignant cases, at the cost of wrongly flagging some benign ones.
+
+## Dataset
+
+`Breast_cancer_data.csv` has 569 samples, 5 numeric features and a binary target, with no missing values.
+
+| Column | Description |
+|---|---|
+| `mean_radius` | Mean distance from the center to points on the perimeter |
+| `mean_texture` | Standard deviation of gray-scale values |
+| `mean_perimeter` | Mean size of the core tumor perimeter |
+| `mean_area` | Mean area of the tumor |
+| `mean_smoothness` | Mean local variation in radius lengths |
+| `diagnosis` | Target: 0 = malignant (212 samples), 1 = benign (357 samples) |
+
+The label mapping follows the standard Wisconsin Breast Cancer dataset. Check that it matches your data source.
+
+## Project structure
+
+```
+breast_cancer_project/
+├── Breast_cancer_data.csv         # dataset
+├── Breast_Cancer_Prediction.ipynb # step-by-step notebook (with outputs)
+├── breast_cancer_dl.py            # same pipeline as a script
+├── predict.py                     # predict on a new sample
+├── requirements.txt
+├── README.md
+└── outputs/                       # generated when you run the code
+    ├── breast_cancer_model.keras  # trained model
+    ├── best_model.keras           # best checkpoint (lowest validation loss)
+    ├── scaler.pkl                 # fitted StandardScaler
+    ├── metrics.json               # accuracy, AUC, confusion matrix
+    └── *.png                      # plots (training curves, ROC, confusion matrix, etc.)
+```
+
+## Method
+
+1. **Split:** stratified 70/15/15 train/validation/test split (398/85/86 samples).
+2. **Scaling:** `StandardScaler` fit on the training set only, to avoid data leakage.
+3. **Class imbalance:** balanced class weights during training.
+4. **Model:** Dense(64) → Dense(32) → Dense(16) → sigmoid output, with batch normalization, dropout (0.3) and L2 regularization. About 3,400 parameters.
+5. **Training:** Adam optimizer, binary cross-entropy loss, batch size 32, up to 200 epochs. Early stopping (patience 20) and learning-rate reduction on plateau.
+6. **Evaluation:** accuracy, precision, recall, F1, ROC-AUC, confusion matrix and permutation feature importance.
+
+## Getting started
+
+### 1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+For the notebook you also need Jupyter: `pip install jupyter`.
+
+### 2. Train and evaluate
+
+Run either the script or the notebook (the CSV must be in the same folder):
+
+```bash
+python breast_cancer_dl.py
+# or
+jupyter notebook Breast_Cancer_Prediction.ipynb
+```
+
+Both save the model, scaler, metrics and plots to `outputs/`.
+
+### 3. Predict on a new sample
+
+After training, run:
+
+```bash
+python predict.py
+```
+
+To use your own values, edit the `sample` array in `predict.py`. The feature order is: `mean_radius, mean_texture, mean_perimeter, mean_area, mean_smoothness`.
+
+```python
+sample = np.array([[17.99, 10.38, 122.8, 1001.0, 0.1184]], dtype="float32")
+```
+
+The script prints P(benign) and the predicted class (threshold 0.5).
+
+## Limitations
+
+- The test set is small (86 samples), so metrics can change noticeably with a different random seed. Stratified k-fold cross-validation would give a more reliable estimate.
+- Only 5 features are used. The full 30-feature Wisconsin dataset typically reaches about 97% accuracy.
+- Radius, perimeter and area are highly correlated, so they carry overlapping information.
+- The model has not been validated on external data and must not be used for clinical decisions.
+
+## Possible improvements
+
+- Cross-validation and hyperparameter tuning (e.g. Keras Tuner or Optuna)
+- Comparison against baselines such as logistic regression, random forest and gradient boosting
+- Decision-threshold tuning to favor recall on the malignant class
+- Using the full 30-feature dataset
+- Model explainability with SHAP
+
+## Tech stack
+
+Python, TensorFlow/Keras, scikit-learn, pandas, NumPy, Matplotlib, Seaborn, Joblib
