@@ -40,9 +40,7 @@ The label mapping follows the standard Wisconsin Breast Cancer dataset. Check th
 ```
 breast_cancer_project/
 ├── Breast_cancer_data.csv         # dataset
-├── Breast_Cancer_Prediction.ipynb # step-by-step notebook (with outputs)
-├── breast_cancer_dl.py            # same pipeline as a script
-├── predict.py                     # predict on a new sample
+├── Breast_Cancer_Prediction.ipynb # notebook
 ├── requirements.txt
 ├── README.md
 └── outputs/                       # generated when you run the code
@@ -74,46 +72,13 @@ For the notebook you also need Jupyter: `pip install jupyter`.
 
 ### 2. Train and evaluate
 
-Run either the script or the notebook (the CSV must be in the same folder):
+Run the notebook step by step (the CSV must be in the same folder):
 
 ```bash
-python breast_cancer_dl.py
-# or
 jupyter notebook Breast_Cancer_Prediction.ipynb
 ```
 
-Both save the model, scaler, metrics and plots to `outputs/`.
-
-### 3. Predict on a new sample
-
-After training, run:
-
-```bash
-python predict.py
-```
-
-To use your own values, edit the `sample` array in `predict.py`. The feature order is: `mean_radius, mean_texture, mean_perimeter, mean_area, mean_smoothness`.
-
-```python
-sample = np.array([[17.99, 10.38, 122.8, 1001.0, 0.1184]], dtype="float32")
-```
-
-The script prints P(benign) and the predicted class (threshold 0.5).
-
-## Limitations
-
-- The test set is small (86 samples), so metrics can change noticeably with a different random seed. Stratified k-fold cross-validation would give a more reliable estimate.
-- Only 5 features are used. The full 30-feature Wisconsin dataset typically reaches about 97% accuracy.
-- Radius, perimeter and area are highly correlated, so they carry overlapping information.
-- The model has not been validated on external data and must not be used for clinical decisions.
-
-## Possible improvements
-
-- Cross-validation and hyperparameter tuning (e.g. Keras Tuner or Optuna)
-- Comparison against baselines such as logistic regression, random forest and gradient boosting
-- Decision-threshold tuning to favor recall on the malignant class
-- Using the full 30-feature dataset
-- Model explainability with SHAP
+Save the model, scaler, metrics and plots to `outputs/`.
 
 ## Tech stack
 
