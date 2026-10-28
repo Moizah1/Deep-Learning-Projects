@@ -43,15 +43,6 @@ It uses [`cardiffnlp/twitter-roberta-base-sentiment-latest`](https://huggingface
 
 **How labels relate to ratings:** 1 to 2 stars are `negative`, 3 stars is `neutral`, 4 to 5 stars are `positive`. The dataset also includes harder cases: 4-star reviews with a minor complaint (labelled positive), 2-star reviews with some praise (labelled negative), balanced pros-and-cons reviews (neutral), and a small number of sarcastic 1-star reviews.
 
-**Regenerating or resizing the dataset**
-
-```bash
-python generate_amazon_reviews.py                                # defaults: 1,500 reviews, 120 products
-python generate_amazon_reviews.py --n-reviews 2000 --n-products 150 --seed 7 --out my_reviews.csv
-```
-
-The default seed (`42`) reproduces the included file exactly.
-
 ## What the notebook does
 
 | Section | Description |
@@ -93,34 +84,6 @@ Before running, point the notebook at the new dataset. In the Setup cell, change
 DATA_PATH = "amazon_reviews_labeled.csv"
 ```
 
-(The notebook's default is still `sample_data.csv`, the original 20 social-media comments.) Then run the cells from top to bottom (**Kernel → Restart & Run All**).
-
-## Input data format
-
-The notebook needs a CSV with these columns:
-
-| Column | Required | Used for |
-|---|---|---|
-| `comment` | Yes | The text to analyse (change `TEXT_COL` to use another column) |
-| `date` | Yes | Daily trend chart |
-| `platform` | Yes | Per-group chart in Section 5.2 |
-| `label` | No | Evaluation in Section 6 and fine-tuning in Section 9 |
-
-**Tip:** every row in the Amazon dataset has `platform = "Amazon"`, so the per-platform chart in Section 5.2 shows a single bar. For a more useful breakdown, group by product category instead. In that cell, replace `"platform"` with `"category"` in the `groupby` and `value_counts` calls.
-
-## Configuration
-
-All settings are in the Setup cell:
-
-| Variable | Default | Meaning |
-|---|---|---|
-| `DATA_PATH` | `sample_data.csv` | Input CSV. Set to `amazon_reviews_labeled.csv`. |
-| `TEXT_COL` | `comment` | Column containing the text |
-| `MODEL_ID` | `cardiffnlp/twitter-roberta-base-sentiment-latest` | Hugging Face model name or local path |
-| `BATCH_SIZE` | `16` | Reviews scored per batch |
-| `MAX_LEN` | `128` | Maximum tokens per review (longer text is truncated) |
-| `LOW_CONF` | `0.60` | Predictions below this confidence are flagged for human review |
-
 ## Output
 
 `sentiment_results.csv` contains the original columns plus:
@@ -135,41 +98,7 @@ All settings are in the Setup cell:
 
 ## Evaluating accuracy
 
-The dataset includes ground-truth labels, so Section 6 compares the model's predictions against the `label` column automatically and reports accuracy, precision, recall, F1 and a confusion matrix. Neutral reviews are likely to be the hardest class, since they sit between the other two.
-
-**Read the scores with care.** The reviews are built from templates, so the wording is more repetitive and regular than real customer text. Results on this dataset will probably look better than on real Amazon reviews. Use it to check that the pipeline works end to end, and test on real reviews before drawing conclusions about real-world accuracy.
-
-## Fine-tuning on the labelled data
-
-Section 9 contains a `fine_tune()` function, switched off by default. The dataset now has a `label` column and 1,500 rows, so it is large enough to try.
-
-1. Set `RUN_FINETUNE = True` and run the cell.
-2. The function holds out 20% of the data for validation. The best model is saved to `./sentiment-finetuned`.
-3. To use it, set `MODEL_ID = "./sentiment-finetuned"` in the Setup cell and re-run.
-
-Because the reviews are templated, a fine-tuned model can score very high here by learning the templates rather than general sentiment. Don't expect the same performance on real reviews. Fine-tuning on real labelled reviews will give a more honest result.
-
-## Known limitations
-
-- **Synthetic data:** see above. The dataset is for prototyping and testing, not for benchmarking.
-- **Sarcasm** ("Oh great, the battery life is terrible. Thanks a lot.") is often misread as positive. The dataset contains a few such cases.
-- **Mixed opinions** usually come out as neutral or low-confidence.
-- **Language:** the model is trained on English text. Other languages need a multilingual model.
-- **Domain terms:** product-specific jargon may be misjudged until you fine-tune.
-
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| `ModuleNotFoundError` | Run the `pip install` command from Setup in the same environment as your Jupyter kernel |
-| Model download fails or hangs | Check your internet connection or proxy. Hugging Face must be reachable on the first run. |
-| "Unauthenticated requests to the HF Hub" warning | Harmless. Set an `HF_TOKEN` or run `huggingface-cli login` to silence it. |
-| `CUDA out of memory` | Lower `BATCH_SIZE` (for example to 4) |
-| Slow on CPU | Expected for large files. Increase `BATCH_SIZE` if you have RAM to spare, or use a GPU. |
-| `FileNotFoundError` for the CSV | Keep the CSV in the same folder as the notebook, or set the full path in `DATA_PATH` |
-| `KeyError: 'platform'` or `'date'` | Your CSV is missing a required column. Add it or adapt the cells that use it. |
-| Section 6 reports no labels | The CSV has no `label` column, or its values aren't `negative`/`neutral`/`positive` |
-| `TrainingArguments` error about `eval_strategy` | Upgrade with `pip install -U transformers` (older versions call it `evaluation_strategy`) |
+The dataset includes ground-truth labels, so the sanity check against hand labels compares the model's predictions against the `label` column automatically and reports accuracy, precision, recall, F1 and a confusion matrix. Neutral reviews are likely to be the hardest class, since they sit between the other two.
 
 ## Credits
 
