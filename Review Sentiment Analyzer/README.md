@@ -10,7 +10,6 @@ It uses [`cardiffnlp/twitter-roberta-base-sentiment-latest`](https://huggingface
 .
 ├── review_sentiment_analyzer.ipynb   # the notebook
 ├── amazon_reviews_labeled.csv        # 1,500 labelled synthetic reviews (the dataset)
-├── generate_amazon_reviews.py        # script that creates the dataset (standard library only)
 ├── sentiment_results.csv             # created when you run the notebook
 └── README.md
 ```
