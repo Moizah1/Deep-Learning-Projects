@@ -49,38 +49,10 @@ All settings are in the `CFG` dictionary near the top of the notebook:
 
 ## How it works
 
-1. **Data.** WikiText-2 is loaded via Hugging Face `datasets`. Text is lowercased, wiki headings are dropped, digits become `<num>`, and `<eos>` is appended per line so the model learns how text starts. If the download fails, a tiny toy corpus is used as a smoke-test fallback only.
+1. **Data.** Salesforce/wikitext is loaded via Hugging Face `datasets`. Text is lowercased, wiki headings are dropped, digits become `<num>`, and `<eos>` is appended per line so the model learns how text starts. If the download fails, a tiny toy corpus is used as a smoke-test fallback only.
 2. **Model.** Both models map `(batch, time)` word ids to next-word logits and share (tie) input and output embeddings.
 3. **Training.** Cross-entropy on every position, AdamW, gradient clipping, OneCycle learning-rate schedule, early stopping on validation loss.
 4. **Evaluation.** Perplexity and top-k accuracy, scored only where the true next token is a real word and ranking only real words, matching what the keyboard actually shows.
 5. **Inference.** `PredictiveKeyboard` masks out special tokens and punctuation, applies the partial-word prefix filter, and exposes the API below.
 
-## Usage
 
-```python
-kb = PredictiveKeyboard(model, vocab, CFG["SEQ_LEN"], device)
-
-kb.next_words("the president of the", k=3)
-# [(word, probability), ...]
-
-kb.complete_phrases("in the year", n_words=3, k=3)
-# beam search: [("phrase of three words", probability), ...]
-
-kb.suggest("he said that the", k=3, max_words=3)
-# keyboard output: [("1-3 word suggestion", first_word_probability), ...]
-
-kb.suggest("the unit")           # partial word handled automatically
-apply_suggestion("the presid", "president of")   # -> "the president of "
-```
-
-Reload a saved model later without retraining:
-
-```python
-kb = load_keyboard("checkpoints/keyboard_lstm.pt")
-```
-
-## Notes and limitations
-
-- The default model is trained on Wikipedia text, so suggestions sound encyclopedic. For a messaging-style keyboard, train on chat or email text via `CORPUS_PATH`.
-- The tokenizer is word-level: rare words become `<unk>` and typos are not corrected. Subword tokenization (BPE) would handle these better.
-- Results (perplexity and accuracy) depend on hardware, seed and configuration; the notebook prints your actual numbers at the end of training.
