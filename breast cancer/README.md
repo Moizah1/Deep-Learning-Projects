@@ -72,11 +72,7 @@ For the notebook you also need Jupyter: `pip install jupyter`.
 
 ### 2. Train and evaluate
 
-Run the notebook step by step (the CSV must be in the same folder):
-
-```bash
-jupyter notebook Breast_Cancer_Prediction.ipynb
-```
+Run the cells in notebook from top to bottom (the CSV must be in the same folder):
 
 Save the model, scaler, metrics and plots to `outputs/`.
 
