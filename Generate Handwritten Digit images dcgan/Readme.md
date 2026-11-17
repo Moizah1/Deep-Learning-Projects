@@ -83,10 +83,8 @@ pip install torch torchvision numpy matplotlib jupyter imageio
 ## How to Run
 
 **Locally**
-```bash
-jupyter notebook Generate_handwritten_digit_images_DCGAN.ipynb
-```
-Then choose **Kernel -> Restart & Run All**.
+
+**Run All** the cells from top to bottom.
 
 **Google Colab**
 1. Upload the notebook to [colab.research.google.com](https://colab.research.google.com).
