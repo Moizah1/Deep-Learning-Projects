@@ -10,3 +10,17 @@ The model recognizes 7 emotions: `angry`, `disgust`, `fear`, `happy`, `neutral`,
 2. **Preprocessing:** each face is cropped, converted to grayscale, and resized to 48x48.
 3. **Classification:** a CNN predicts a probability for each emotion.
 4. **Display:** a colored box and label (emotion + confidence) are drawn on the frame. Predictions are averaged over the last 8 frames to reduce flicker.
+
+## Project structure
+
+```
+.
+├── emotion_recognition.ipynb   # Data loading, training, evaluation, live demo
+├── emotion_cnn.keras           # Trained model (created after training)
+├── README.md
+└── fer2013/                    # Dataset (download separately)
+    ├── train/
+    │   ├── angry/ disgust/ fear/ happy/ neutral/ sad/ surprise/
+    └── test/
+        └── angry/ disgust/ fear/ happy/ neutral/ sad/ surprise/
+```
