@@ -24,3 +24,16 @@ The model recognizes 7 emotions: `angry`, `disgust`, `fear`, `happy`, `neutral`,
     └── test/
         └── angry/ disgust/ fear/ happy/ neutral/ sad/ surprise/
 ```
+## Requirements
+
+- Python 3.9 - 3.11
+- A webcam (for the live demo; training and image testing work without one)
+- A GPU is optional but speeds up training considerably
+
+Install dependencies:
+
+```bash
+pip install tensorflow opencv-python numpy matplotlib seaborn scikit-learn jupyter
+```
+
+
