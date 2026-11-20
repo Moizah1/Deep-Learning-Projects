@@ -37,3 +37,59 @@ pip install tensorflow opencv-python numpy matplotlib seaborn scikit-learn jupyt
 ```
 
 
+## Getting started
+
+1. **Download the dataset** from Kaggle (for example [`msambare/fer2013`](https://www.kaggle.com/datasets/msambare/fer2013)) and extract it so the folder layout matches the structure above. Update `DATA_DIR` in the notebook if you put it elsewhere.
+   - If you only have the original `fer2013.csv`, set `USE_CSV = True` in the optional loader cell.
+2. **Launch Jupyter:**
+   ```bash
+   jupyter notebook emotion_recognition.ipynb
+   ```
+3. **Run the notebook top to bottom.** Training saves the best model to `emotion_cnn.keras`.
+4. **Start the live demo** in section 7.
+
+## Notebook sections
+
+| Section | Description |
+|---|---|
+| 0-1 | Imports and configuration (image size, batch size, epochs, paths) |
+| 2 | Load FER2013, preview samples, plot class balance, compute class weights |
+| 3 | Build the CNN (4 conv blocks, batch norm, dropout, global average pooling) |
+| 4 | Train with checkpointing, early stopping, and learning-rate reduction |
+| 5 | Evaluate: accuracy/loss curves, classification report, confusion matrix |
+| 6 | Real-time inference helpers (face detection, preprocessing, annotation) |
+| 7a | Live webcam in an OpenCV window |
+| 7b | Live webcam rendered inline in the notebook |
+| 7c | Predict on a single image (no webcam needed) |
+
+## Running the live demo
+
+**OpenCV window (7a):** run the cell and press `q` in the video window to quit. If the window freezes, run the cleanup cell right after it.
+
+**Inline (7b):** uncomment `run_webcam_inline()` and run it. Stop it with the notebook's **Interrupt kernel** button; the camera is released automatically.
+
+**Single image (7c):** uncomment `predict_image("my_photo.jpg")` and point it at any image containing a face.
+
+To skip training and use an existing model, run the imports and section 6, and load the model first:
+
+```python
+model = keras.models.load_model("emotion_cnn.keras")
+class_names = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+```
+
+## Model details
+
+- **Input:** 48x48x1 grayscale image (rescaled to 0-1 inside the model)
+- **Augmentation (training only):** horizontal flip, rotation, zoom, translation
+- **Architecture:** 4 blocks of two 3x3 convolutions with batch norm, ReLU, max pooling, and dropout (32 -> 64 -> 128 -> 256 filters), then global average pooling, a 256-unit dense layer, and a 7-way softmax
+- **Loss / optimizer:** categorical cross-entropy, Adam (lr 1e-3, reduced on plateau)
+- **Class imbalance:** handled with balanced class weights
+
+### Reason for Expected performance 
+
+A custom CNN on FER2013 typically reaches about **60-68% test accuracy**. This is normal: the dataset has noisy labels and human agreement is only around 65%. Exact results vary by run and hardware.
+
+## Acknowledgments
+
+- **FER2013** dataset: Goodfellow et al., "Challenges in Representation Learning: A report on three machine learning contests" (ICML 2013 workshop)
+- [TensorFlow / Keras](https://www.tensorflow.org/) and [OpenCV](https://opencv.org/)
